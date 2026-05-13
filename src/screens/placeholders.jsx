@@ -1,5 +1,9 @@
 // Placeholder screens — replace each with the real implementation.
 import { WarmBG, PillButton } from '../components/ui';
+import HomeTabReal from './HomeScreen';
+import MeScreenReal from './MeScreen';
+import { ResonanceScreen as ResonanceScreenReal } from './CommunityScreen';
+import SessionScreenReal from './SessionScreen';
 
 function PlaceholderScreen({ name, primaryAction, primaryLabel = 'Continue' }) {
   return (
@@ -25,22 +29,20 @@ function PlaceholderScreen({ name, primaryAction, primaryLabel = 'Continue' }) {
   );
 }
 
-export function ArchetypeReveal({ archetypeId, onContinue, palette }) {
-  return <PlaceholderScreen name="Archetype Reveal" primaryAction={onContinue} primaryLabel="Enter App"/>;
+// ArchetypeReveal is now implemented in OnboardingScreen.jsx and imported directly in App.jsx
+
+export function SessionScreen(props) {
+  return <SessionScreenReal {...props}/>;
 }
 
-export function SessionScreen({ meal, mascot, speedMode, setSpeedMode, showDynamicIsland, onEnd, palette }) {
-  return <PlaceholderScreen name="Session (Slow Field)" primaryAction={onEnd} primaryLabel="End Meal"/>;
+export function HomeTab(props) {
+  return <HomeTabReal {...props}/>;
 }
 
-export function HomeTab({ archetype, mascot, onScan, palette }) {
-  return <PlaceholderScreen name="Home" primaryAction={onScan} primaryLabel="Scan a Meal"/>;
+export function ResonanceScreen(props) {
+  return <ResonanceScreenReal {...props}/>;
 }
 
-export function ResonanceScreen({ mascot, onBack, embedded, palette }) {
-  return <PlaceholderScreen name="Community (Resonance)"/>;
-}
-
-export function MeScreen({ archetype, mascot, quizAnswers, onRetakeQuiz, palette }) {
-  return <PlaceholderScreen name="Me" primaryAction={onRetakeQuiz} primaryLabel="Retake Quiz"/>;
+export function MeScreen(props) {
+  return <MeScreenReal {...props}/>;
 }

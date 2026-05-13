@@ -1,9 +1,11 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@500;600;700;800&display=swap');
 
 /* ── typography ────────────────────────────────── */
 .ss-display {
-  font-family: 'Baloo 2', system-ui, sans-serif;
-  font-weight: 700;
+  font-family: 'Baloo 2', 'Nunito', system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 .ss-body {
@@ -12,31 +14,75 @@
 }
 
 /* ── animations ────────────────────────────────── */
+@keyframes ss-squish-in {
+  0%   { transform: scale(0.85) translateY(30px); opacity: 0; }
+  60%  { transform: scale(1.04) translateY(-4px); opacity: 1; }
+  100% { transform: scale(1)    translateY(0);    opacity: 1; }
+}
+
+.ss-squish-in {
+  animation: ss-squish-in 520ms cubic-bezier(.34,1.56,.64,1) both;
+}
+
 @keyframes ss-float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0)    rotate(-1deg); }
+  50%       { transform: translateY(-8px) rotate(1deg); }
 }
 
 .ss-float {
   animation: ss-float 4s ease-in-out infinite;
 }
 
+@keyframes ss-pulse {
+  0%, 100% { transform: scale(1);    opacity: 0.9; }
+  50%       { transform: scale(1.08); opacity: 1; }
+}
+
+.ss-pulse {
+  animation: ss-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes ss-breathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+
 @keyframes ss-scan {
-  0%   { top: 20px;  }
-  50%  { top: calc(100% - 24px); }
-  100% { top: 20px;  }
+  0%, 100% { transform: translateY(0);     opacity: 0.9; }
+  50%       { transform: translateY(180px); opacity: 1; }
 }
 
-@keyframes ss-squish-in {
-  0%   { opacity: 0; transform: scale(0.92) translateY(16px); }
-  100% { opacity: 1; transform: scale(1)    translateY(0); }
+@keyframes ss-shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-2px); }
+  75%       { transform: translateX(2px); }
 }
 
-.ss-squish-in {
-  animation: ss-squish-in 360ms cubic-bezier(.34,1.56,.64,1) both;
+@keyframes ss-shine {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }
 
-/* ── scrollbar (thin, warm) ─────────────────────── */
-.ss-scrollbar::-webkit-scrollbar       { width: 4px; }
-.ss-scrollbar::-webkit-scrollbar-track { background: transparent; }
-.ss-scrollbar::-webkit-scrollbar-thumb { background: rgba(42,24,16,0.2); border-radius: 4px; }
+@keyframes ss-sweat {
+  0%   { transform: translate(0, 0);    opacity: 0; }
+  20%  {                                opacity: 1; }
+  100% { transform: translate(0, 18px); opacity: 0; }
+}
+
+@keyframes ss-glow {
+  0%, 100% { filter: drop-shadow(0 0 8px  rgba(255,200,100,0.6)); }
+  50%       { filter: drop-shadow(0 0 20px rgba(255,200,100,0.9)); }
+}
+
+@keyframes ss-sparkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg);    }
+  50%       { opacity: 1;   transform: scale(1.1) rotate(180deg);  }
+}
+
+.ss-sparkle {
+  animation: ss-sparkle 2.2s ease-in-out infinite;
+}
+
+/* ── scrollbar (hidden) ─────────────────────────── */
+.ss-scrollbar::-webkit-scrollbar { display: none; }
+.ss-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

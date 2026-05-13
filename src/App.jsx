@@ -1,16 +1,15 @@
 import { useState as useStateA, useEffect as useEffectA } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ScannerScreen from './screens/ScannerScreen';
-import SplashScreen from './screens/SplashScreen';
-import QuizScreen from './screens/QuizScreen';
+import { SplashScreen, OnboardingScreen, QuizScreen, ArchetypeReveal } from './screens/OnboardingScreen';
 import {
-  ArchetypeReveal, SessionScreen, HomeTab, ResonanceScreen, MeScreen,
+  SessionScreen, HomeTab, ResonanceScreen, MeScreen,
 } from './screens/placeholders';
 import { IOSDevice } from './components/ui';
 import { ARCHETYPES, PALETTES } from './data';
 
 export default function App() {
-  const [phase, setPhase] = useStateA('splash'); // splash | quiz | reveal | app
+  const [phase, setPhase] = useStateA('splash'); // splash | onboarding | quiz | reveal | app
   const [tab, setTab] = useStateA('home');        // home | community | me
   const [scanFlow, setScanFlow] = useStateA(null); // null | 'scanner' | 'session'
   const [archetypeId, setArchetypeId] = useStateA('dazed-rice');
@@ -48,10 +47,14 @@ export default function App() {
   // ─── screen routing
   let content;
   if (phase === 'splash') {
-    content = <SplashScreen palette={palette} onStart={() => setPhase('quiz')}/>;
+    content = <SplashScreen palette={palette} onStart={() => setPhase('onboarding')}/>;
+  } else if (phase === 'onboarding') {
+    content = <OnboardingScreen palette={palette}
+      onBack={() => setPhase('splash')}
+      onStart={() => setPhase('quiz')}/>;
   } else if (phase === 'quiz') {
     content = <QuizScreen palette={palette}
-      onBack={() => setPhase('splash')}
+      onBack={() => setPhase('onboarding')}
       onComplete={(a, ans) => { setArchetypeId(a); setQuizAnswers(ans); setPhase('reveal'); }}/>;
   } else if (phase === 'reveal') {
     content = <ArchetypeReveal palette={palette} archetypeId={archetypeId}
@@ -207,8 +210,9 @@ function TweaksPanel({ palette, setPalette, speedMode, setSpeedMode, showDynamic
       <TweakSection title="Jump to">
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 6 }}>
           {[
-            { label: 'Splash',    go: () => { setPhase('splash');  setScanFlow(null); } },
-            { label: 'Quiz',      go: () => { setPhase('quiz');    setScanFlow(null); } },
+            { label: 'Splash',     go: () => { setPhase('splash');      setScanFlow(null); } },
+            { label: 'Onboarding', go: () => { setPhase('onboarding'); setScanFlow(null); } },
+            { label: 'Quiz',       go: () => { setPhase('quiz');        setScanFlow(null); } },
             { label: 'Reveal',    go: () => { setPhase('reveal');  setScanFlow(null); } },
             { label: 'Home',      go: () => { setPhase('app'); setTab('home');      setScanFlow(null); } },
             { label: 'Community', go: () => { setPhase('app'); setTab('community'); setScanFlow(null); } },
