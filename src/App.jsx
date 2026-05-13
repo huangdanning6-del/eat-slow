@@ -1,4 +1,5 @@
 import { useState as useStateA, useEffect as useEffectA } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import ScannerScreen from './screens/ScannerScreen';
 import SplashScreen from './screens/SplashScreen';
 import QuizScreen from './screens/QuizScreen';
@@ -78,6 +79,7 @@ export default function App() {
   }
 
   const showTabBar = phase === 'app' && !scanFlow;
+  const screenKey = scanFlow ?? (phase === 'app' ? `app-${tab}` : phase);
 
   return (
     <div style={{
@@ -92,7 +94,21 @@ export default function App() {
 
       <IOSDevice width={390} height={844}>
         <div style={{ position: 'absolute', inset: 0 }}>
-          {content}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={screenKey}
+              initial={{ opacity: 0, scale: 0.97, y: 14 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, y: -10 }}
+              transition={{
+                duration: 0.52,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              style={{ position: 'absolute', inset: 0 }}
+            >
+              {content}
+            </motion.div>
+          </AnimatePresence>
           {showTabBar && <TabBar tab={tab} setTab={setTab} onScan={() => setScanFlow('scanner')}/>}
         </div>
       </IOSDevice>
