@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* ── typography ────────────────────────────────── */
+.ss-display {
+  font-family: 'Baloo 2', system-ui, sans-serif;
+  font-weight: 700;
+}
+
+.ss-body {
+  font-family: 'Nunito', system-ui, sans-serif;
+  font-weight: 500;
+}
+
+/* ── animations ────────────────────────────────── */
+@keyframes ss-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+.ss-float {
+  animation: ss-float 4s ease-in-out infinite;
+}
+
+@keyframes ss-scan {
+  0%   { top: 20px;  }
+  50%  { top: calc(100% - 24px); }
+  100% { top: 20px;  }
+}
+
+@keyframes ss-squish-in {
+  0%   { opacity: 0; transform: scale(0.92) translateY(16px); }
+  100% { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+.ss-squish-in {
+  animation: ss-squish-in 360ms cubic-bezier(.34,1.56,.64,1) both;
+}
+
+/* ── scrollbar (thin, warm) ─────────────────────── */
+.ss-scrollbar::-webkit-scrollbar       { width: 4px; }
+.ss-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.ss-scrollbar::-webkit-scrollbar-thumb { background: rgba(42,24,16,0.2); border-radius: 4px; }
